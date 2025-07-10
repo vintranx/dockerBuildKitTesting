@@ -1,0 +1,41 @@
+services:
+  mail:
+    build: .
+  solr:
+    build: .
+  hra:
+    build: .
+  rio-drools-service-core:
+    build: .
+  rio-drools-service-epublic:
+    build: .
+  service1:
+    build: .
+  service2:
+    build: .
+  service3:
+    build: .
+  service4:
+    build: .
+  service5:
+    build: .
+  service6:
+    build: .
+  service7:
+    build: .
+  service8:
+    build: .
+  service9:
+    build: .
+  service10:
+    build: .
+  service11:
+    build: .
+  service12:
+    build: .
+  service13:
+    build: .
+  service14:
+    build: .
+  service15:
+    build: .
