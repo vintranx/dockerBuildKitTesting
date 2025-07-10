@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - docker login 
+      - export DOCKER_BUILDKIT=1
+      - export COMPOSE_DOCKER_CLI_BUILD=1
+      - export BUILDKIT_PROGRESS=plain
+      - export BUILDKIT_HOST=tcp://127.0.0.1:1234
+      - docker buildx create --use --name mybuilder --driver docker-container --driver-opt image=moby/buildkit:v0.10.6 || echo "builder exists"
+      - docker buildx inspect --bootstrap
+      - docker buildx version
+      - docker version
+      - docker info | grep -i buildkit || echo "BuildKit info not found"
+      - timeout 30s docker buildx build --platform linux/amd64,linux/arm64 -t test . || echo "timeout expected"
+  
+  build:
+    commands:
+      - docker-compose -f docker-compose-buildkit.yml build --parallel
+      - docker-compose -f docker-compose-buildkit.yml up -d
+  
+  post_build:
+    commands:
+      - docker-compose -f docker-compose-buildkit.yml down
