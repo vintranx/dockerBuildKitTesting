@@ -1,0 +1,3 @@
+FROM alpine:3.18 AS base1
+
+COPY --from=base2 /etc/alpine-release /tmp/
